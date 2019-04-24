@@ -130,9 +130,14 @@ public class GosslingatorTest {
         driver.findElement(By.id("addRyan")).click();
 
            //3.overit pocitanie Ryanov
-        //Assert.assertEquals("", driver.findElement(By.cssSelector("div.tooManyRyans h1")).getText());
-        System.out.println(driver.findElement(By.cssSelector("h1.tooManyRayns")).getText());
-        System.out.println(driver.findElement(By.cssSelector("div.ryan-counter h2")).getText());
+        Assert.assertEquals(
+                "NUMBER OF\n"+
+                        "RYANS\n"+
+                        "IS TOO DAMN\n"+
+                        "HIGH"
+                ,driver.findElement(By.cssSelector("h1.tooManyRyans")).getText());
+        //System.out.println(driver.findElement(By.cssSelector("h1.tooManyRayns")).getText());
+        //System.out.println(driver.findElement(By.cssSelector("div.ryan-counter h2")).getText());
         //driver.findElement()
         //4.zatvorit prehliadac
         driver.close();
