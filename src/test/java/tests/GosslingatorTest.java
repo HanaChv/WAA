@@ -100,7 +100,9 @@ public class GosslingatorTest {
             if (i + 1 >= 2) {
                 Assert.assertEquals("ryans", actualDescription);
             }
-
+//overím počet obrázkov Ryana
+            int numberOfRyanImages = driver.findElements(By.cssSelector("img")).size();
+            Assert.assertEquals(i + 1, numberOfRyanImages);
 
             System.out.println("index i = " + 1);
             System.out.println("pocet ryanov = " + actualNumberOfRyans);
@@ -116,25 +118,32 @@ public class GosslingatorTest {
         //System.out.println(driver.findElement(By.cssSelector("h1.tooManyRayns")).getText());
         //System.out.println(driver.findElement(By.cssSelector("div.ryan-counter h2")).getText());
         //driver.findElement()
+    }
 
-        @Test
-        public void itShouldGetTooManyRyansUsingWhileCycle () {
-            WebElement addRyanButton = driver.findElement(By.id("addRyan"));
-            String actualNumberOfRyans = driver.findElement(By.id("ryanCounter")).getText();
-            //while cyklus sa vykona vzdy ak je podmienka "true"
-            int clicksLimit = 30;
-            int clicks = 0;
-            //ktora podmienka sa splni? bud alebo (true ak plati aspon jedna z oboch podmienok)
-            while (!actualNumberOfRyans.equals("50") || clicks <= clicksLimit) {
-                addRyanButton.click();
-                addRyanButton = driver.findElement(By.id("ryan.Counter")).getText();
-                clicks++;
-//ktora podmienka sa splni? a sucasne!! (truew ak platia obidve podmienky)
+//    @Test
+//    public void itShouldGetTooManyRyansUsingWhileCycle() {
+//        WebElement addRyanButton = driver.findElement(By.id("addRyan"));
+//        String actualNumberOfRyans = driver.findElement(By.id("ryanCounter")).getText();
+//        //while cyklus sa vykona vzdy ak je podmienka "true"
+//        int clicksLimit = 30;
+//        int clicks = 0;
+//        //ktora podmienka sa splni? bud alebo (true ak plati aspon jedna z oboch podmienok)
+//        while (!actualNumberOfRyans.equals("50") || clicks <= clicksLimit) {
+//            addRyanButton.click();
+//            addRyanButton = driver.findElement(By.id("ryan.Counter")).getText();
+//            clicks++;
+//        }
+
+//       // @Test
+//        public void itShouldDisplayNoRyanOnPageOpen() {
+//            Assert.assertFalse(driver.findElement());
+//        }
+//        //ktora podmienka sa splni? a sucasne!! (truew ak platia obidve podmienky)
 //            while (!actualNumberOfRyans.equals("50")&& clicks < clicksLimit){
 //                addRyanButton.click();
 //                addRyanButton = driver.findElement(By.id("ryan.Counter")).getText();
 //                clicks++;
-            }
-        }
+
     }
-}
+
+
