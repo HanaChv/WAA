@@ -46,9 +46,9 @@ public class GosslingatorTest {
         driver.findElement(By.id("removeRyan")).click();
         driver.findElement(By.id("removeRyan")).click();
         //3.overit pocitanie Ryanov
-        Assert.assertEquals("1", driver.findElement(By.cssSelector("div.ryan-counter h2")).getText());
+        Assert.assertEquals("1", getRyanCounterNumber());
         System.out.println("Number of ryans: " + driver.findElement(By.cssSelector("div.ryan-counter h2")).getText());
-        Assert.assertEquals("ryan", driver.findElement(By.cssSelector("div.ryan-counter h3")).getText());
+        Assert.assertEquals("ryan", getCounterDescription());
         //4.zatvorit prehliadac
 
         //čo je to "trieda"??
@@ -62,13 +62,13 @@ public class GosslingatorTest {
 
         //2.kliknut na tlacidlo
         WebElement addRyanButton = driver.findElement(By.id("addRyan"));
-        addRyanButton.click();
-        addRyanButton.click();
-        addRyanButton.click();
+        addRyan();
+        addRyan();
+        addRyan();
         driver.findElement(By.id("removeRyan")).click();
         //3.overit pocitanie Ryanov
         String actualNumberOfRyan = driver.findElement(By.cssSelector("div.ryan-counter h2")).getText();
-        String actualRyanDescription = driver.findElement(By.cssSelector("div.ryan-counter h3")).getText();
+        String actualRyanDescription = getCounterDescription();
         Assert.assertEquals("2", actualNumberOfRyan);
         Assert.assertEquals("ryans", actualRyanDescription);
     }
@@ -88,12 +88,12 @@ public class GosslingatorTest {
         //ALT+J oznacenie kazdeho dalsieho vyskytu
         WebElement addRyanButton = driver.findElement(By.id("addRyan"));
         for (int i = 0; i < 50; i++) {
-            addRyanButton.click();
-            String actualNumberOfRyans = driver.findElement(By.id("ryanCounter")).getText();
+            addRyan();
+            String actualNumberOfRyans = getRyanCounterNumber();
             Assert.assertEquals(String.valueOf(i + 1), actualNumberOfRyans);
 
             //overit sklonovanie pomocou podmienky
-            String actualDescription = driver.findElement(By.cssSelector("div.ryan-counterr h3")).getText();
+            String actualDescription = getCounterDescription();
             if (i + 1 == 1) {
                 Assert.assertEquals("ryan", actualDescription);
             }
@@ -134,16 +134,33 @@ public class GosslingatorTest {
 //            clicks++;
 //        }
 
-//       // @Test
+    //       // @Test
 //        public void itShouldDisplayNoRyanOnPageOpen() {
 //            Assert.assertFalse(driver.findElement());
 //        }
+    private void addRyan() {
+        WebElement ryanButton = driver.findElement(By.id("addRyan"));
+        ryanButton.click();
+    }
+
+    private String getRyanCounterNumber() {
+        return driver.findElement(By.id("ryanCounter")).getText();
+    }
+
+    private String getCounterDescription() {
+//        vrati napis Ryan alebo Ryans
+        return driver.findElement(By.cssSelector("div.ryan-counter h3")).getText();
+    }
+
+    private int getNumberOfRyanImages(){
+
+    }
 //        //ktora podmienka sa splni? a sucasne!! (truew ak platia obidve podmienky)
 //            while (!actualNumberOfRyans.equals("50")&& clicks < clicksLimit){
 //                addRyanButton.click();
 //                addRyanButton = driver.findElement(By.id("ryan.Counter")).getText();
 //                clicks++;
 
-    }
+}
 
 
