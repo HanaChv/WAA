@@ -5,8 +5,11 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class GosslingatorPage {
+@FindBy(id = "addRyan")
+   WebElement addRyanButton;
     WebDriver pageDriver;
 
     public GosslingatorPage(WebDriver driver) {
