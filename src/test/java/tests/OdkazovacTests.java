@@ -55,11 +55,10 @@ public class OdkazovacTests {
         }
 
     }
-    private void submitNewNote(){
-        driver.findElement(cssSelector("button.btn-block")).click();
-    }
 
-    private WebElement getLastNoteFromList(){
 
-    }
+
+//    private WebElement getLastNoteFromList() {
+//        return driver.findElement(By.cssSelector("ul.list-of-sins > li:last-child"));
+//    }
 }
