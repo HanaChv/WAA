@@ -1,5 +1,6 @@
 package tests;
 
+import base.TestBase;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,9 +9,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.GosslingatorPage;
 
-public class GosslingatorTest {
-    WebDriver driver;
+public class GosslingatorTest extends TestBase {
+    private GosslingatorPage gossPage;
+    private String actualNumberOfRyans; //private = viditelna len pre triedu
 
     //    public void setUp() {
 //        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
@@ -19,13 +22,15 @@ public class GosslingatorTest {
 //        //1.otvorit stranku
 //        driver.get("http://localhost/gosslingator.php");
 //    }
+
     @Before
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+    public void openPage() {
+        System.setProperty("webdriver.chrome.driver", "chromedriver74.exe");
         //spustit prehliadac
         driver = new ChromeDriver();
         //otvorit stranku
-        driver.get("http://localhost/gosslingator.php");
+        driver.get(BASE_URL + "/gosslingator.php");
+        gossPage = new GosslingatorPage(driver)
     }
 
     @After
@@ -38,44 +43,36 @@ public class GosslingatorTest {
 
     @Test
     public void itShouldAddOneRyan() {
-        //2.kliknut na tlacidlo
-
+        GosslingatorPage gossPage = new GosslingatorPage(driver);
         driver.findElement(By.id("addRyan")).click();
         driver.findElement(By.id("addRyan")).click();
         driver.findElement(By.id("addRyan")).click();
         driver.findElement(By.id("removeRyan")).click();
         driver.findElement(By.id("removeRyan")).click();
-        //3.overit pocitanie Ryanov
-        Assert.assertEquals("1", getRyanCounterNumber());
+        Assert.assertEquals("1", gossPage.getRyanCounterNumber());
         System.out.println("Number of ryans: " + driver.findElement(By.cssSelector("div.ryan-counter h2")).getText());
-        Assert.assertEquals("ryan", getCounterDescription());
-        //4.zatvorit prehliadac
-
-        //čo je to "trieda"??
-        //čo je to "driver"??
-        //.get (tak ako v Python :-)
-        //Test failed nemame nainstalovany spravny driver - moja verzia google chrome je 73.atd - stiahnut spravnu verziu
+        Assert.assertEquals("ryan", gossPage.getCounterDescription());
     }
 
     @Test
     public void itShouldAddTwoRyans() {
-
+        GosslingatorPage gossPage = new GosslingatorPage(driver);
         //2.kliknut na tlacidlo
         WebElement addRyanButton = driver.findElement(By.id("addRyan"));
-        addRyan();
-        addRyan();
-        addRyan();
+        gossPage.addRyan();
+        gossPage.addRyan();
+        gossPage.addRyan();
         driver.findElement(By.id("removeRyan")).click();
         //3.overit pocitanie Ryanov
         String actualNumberOfRyan = driver.findElement(By.cssSelector("div.ryan-counter h2")).getText();
-        String actualRyanDescription = getCounterDescription();
+        String actualRyanDescription = gossPage.getCounterDescription();
         Assert.assertEquals("2", actualNumberOfRyan);
         Assert.assertEquals("ryans", actualRyanDescription);
     }
 
     @Test
     public void itShouldDisplayTitle() {
-
+        GosslingatorPage gossPage = new GosslingatorPage(driver);
         System.out.println(driver.findElement(By.cssSelector("h1.ryan-title")).getText());
         Assert.assertEquals("GOSLINGATE ME", driver.findElement(By.cssSelector("h1.ryan-title")).getText());
 
@@ -83,17 +80,17 @@ public class GosslingatorTest {
 
     @Test
     public void itShouldGetTooManyRyans() {
-
+        GosslingatorPage gossPage = new GosslingatorPage(driver);
         //2.kliknut na tlacidlo
         //ALT+J oznacenie kazdeho dalsieho vyskytu
         WebElement addRyanButton = driver.findElement(By.id("addRyan"));
         for (int i = 0; i < 50; i++) {
-            addRyan();
-            String actualNumberOfRyans = getRyanCounterNumber();
+            gossPage.addRyan();
+            String actualNumberOfRyans = gossPage.getRyanCounterNumber();
             Assert.assertEquals(String.valueOf(i + 1), actualNumberOfRyans);
 
             //overit sklonovanie pomocou podmienky
-            String actualDescription = getCounterDescription();
+            String actualDescription = gossPage.getCounterDescription();
             if (i + 1 == 1) {
                 Assert.assertEquals("ryan", actualDescription);
             }
@@ -101,7 +98,7 @@ public class GosslingatorTest {
                 Assert.assertEquals("ryans", actualDescription);
             }
 //overím počet obrázkov Ryana
-            int numberOfRyanImages = driver.findElements(By.cssSelector("img")).size();
+            int numberOfRyanImages = gossPage.getNumberOfRyanImages();
             Assert.assertEquals(i + 1, numberOfRyanImages);
 
             System.out.println("index i = " + 1);
@@ -138,29 +135,10 @@ public class GosslingatorTest {
 //        public void itShouldDisplayNoRyanOnPageOpen() {
 //            Assert.assertFalse(driver.findElement());
 //        }
-    private void addRyan() {
-        WebElement ryanButton = driver.findElement(By.id("addRyan"));
-        ryanButton.click();
-    }
 
-    private String getRyanCounterNumber() {
-        return driver.findElement(By.id("ryanCounter")).getText();
-    }
-
-    private String getCounterDescription() {
-//        vrati napis Ryan alebo Ryans
-        return driver.findElement(By.cssSelector("div.ryan-counter h3")).getText();
-    }
-
-    private int getNumberOfRyanImages(){
-
-    }
 //        //ktora podmienka sa splni? a sucasne!! (truew ak platia obidve podmienky)
 //            while (!actualNumberOfRyans.equals("50")&& clicks < clicksLimit){
 //                addRyanButton.click();
 //                addRyanButton = driver.findElement(By.id("ryan.Counter")).getText();
 //                clicks++;
-
 }
-
-
