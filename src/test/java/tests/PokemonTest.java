@@ -1,50 +1,37 @@
 package tests;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class PokemonTest {
-    WebDriver driver;
+import base.TestBase;
+import pages.PokemonPage;
+
+public class PokemonTest extends TestBase {
+    private PokemonPage pokePage;
 
     @Before
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-        //spustit prehliadac
-        driver = new ChromeDriver();
-        //otvorit stranku
-        driver.get("http://localhost/vybersi.php");
-    }
-
-    @After
-    public void tearDown() {
-        //zatvorit prehliadac
-        driver.close();
-        //ukoncit session
-        driver.quit();
+    public void openPage() {
+        //1.otvorit stranku
+        driver.get(BASE_URL + "/vybersi.php");
+        pokePage = new PokemonPage(driver);
     }
 
     @Test
-    public void itShouldSelectPikachu() {
-       // String selectedPokemon = "Pikachu";
-        String[] selectedPokemons = {"Pikachu", "Bulbasaur", "Charmander", "Squirtle", "Diglett", "Geodude"};
-        //najdem element select
-        WebElement pokemonSelect = driver.findElement(By.cssSelector("select"));
+    public void itShouldSelectPokemons() {
+        String[] selectedPokemons = {"Pikachu", "Bulbasaur", "Charmander", "Diglett", "Geodude"};
+
         for (String pokemon : selectedPokemons) {
-            new Select(pokemonSelect).selectByVisibleText(pokemon);
+            //vyberiem pokemona
+            pokePage.selectPokemon(pokemon);
+            //overim hlasku
+            Assert.assertEquals(getExpectedMessage(pokemon), getActualMessage());
         }
-        //vyberiem pokemona
-       // new Select(pokemonSelect).selectByVisibleText(pokemon);
-        //overim hlasku
-//        String actualMessage = driver.findElement(By.cssSelector("div.pokemon h3")).getText();
-//        String expectedMessage = "I choose you " + pokemon + "!";
-//        Assert.assertEquals("I choose you " + pokemon + "!", actualMessage);
-//        Assert.assertEquals(expectedMessage);
+    }
+    public String getExpectedMessage(String pokemonName) {
+        return String.format("I choose you %s !", pokemonName);
     }
 }
