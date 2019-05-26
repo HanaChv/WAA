@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TestBase {
     protected WebDriver driver;
-    protected final String BASE_URL = "http://localhost:8888";
+    protected final String BASE_URL = "http://localhost";
 
     @Before
     public void setUp() {
