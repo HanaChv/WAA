@@ -6,22 +6,34 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import pages.OdkazovacPage;
 
 import java.security.Timestamp;
 
 import static org.openqa.selenium.By.cssSelector;
 import static org.openqa.selenium.By.name;
 
-public class OdkazovacTests {
-    public class NoteTest extends TestBase {
+    public class OdkazovacTests extends TestBase {
+        private OdkazovacPage odkazovacPage;
 
         @Before
         public void openPage() {
             driver.get(BASE_URL + "/odkazovac.php");
+            odkazovacPage = new OdkazovacPage(driver);
         }
 
         @Test
-        public void itShouldAddNewNote() {
+        public void itShouldAddNewNote() throws InterruptedException {
+            //vytvorim si casovu peciatku pre unikatnost title
+            Fairy fairy = Fairy.create();
+            Person fakePerson = fairy.person();
+            //ulozim si hodnoty do premennych
+            String title = generateUniqueTitle();
+            String author = fakePerson.getFirstName() + " " + fakePerson.getLastName();
+            String message = "toto je velmi dlhy a zmysluplny odkaz";
+
+            odkaz
+
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             Fairy fairy = Fairy.create();
             Person person = fairy.person();
