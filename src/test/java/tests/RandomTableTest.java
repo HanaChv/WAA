@@ -15,7 +15,7 @@ public class RandomTableTest {
 
     @Before
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "chromedriver74.exe");
         //spustit prehliadac
         driver = new ChromeDriver();
         //otvorit stranku
