@@ -1,16 +1,10 @@
 package tests;
 
 import base.TestBase;
-import io.codearte.jfairy.Fairy;
-import io.codearte.jfairy.producer.person.Person;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import pages.RegistrationPage;
 
 public class RegistrationTest extends TestBase {
