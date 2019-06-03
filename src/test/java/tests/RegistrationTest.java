@@ -15,8 +15,6 @@ import pages.RegistrationPage;
 
 public class RegistrationTest extends TestBase {
 
-    public static final String "brano"="brano";
-
     @Before
     public void openPage() {
         driver.get("/registracia.php");
